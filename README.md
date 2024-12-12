@@ -3,6 +3,7 @@
 <p align="center">
   <img src="https://cdn-images-1.medium.com/v2/resize:fit:2600/1*u9L_UJbV0Qfg1PZQkHna2g.png" alt="Deep Learning">
 </p>
+
 ## Descripción del Proyecto
 
 Este proyecto de fin de máster se centra en la creación de un sistema de recomendación de vídeos basado en el contenido de los mismos, utilizando técnicas avanzadas de Deep Learning. El objetivo es identificar y recomendar vídeos similares basándose en los objetos presentes en los fotogramas de los vídeos, para posteriormente implementar un recomendador publicitario basado en tecnicas de aprendizaje por refuerzo.
