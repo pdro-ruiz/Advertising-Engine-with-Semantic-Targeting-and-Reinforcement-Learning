@@ -53,6 +53,7 @@ Proyecto
 ├── LICENSE
 ├── main.py
 ├── README.md
+├── SPECIFICATIONS.md
 └── requirements.txt
 ```
 
