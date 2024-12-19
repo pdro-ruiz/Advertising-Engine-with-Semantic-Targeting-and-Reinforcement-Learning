@@ -39,7 +39,10 @@ config_path = os.path.join(os.path.dirname(__file__), '..', 'config', 'settings.
 config.read(config_path)
 
 features_file = config['data']['output_vector_path']
-
+num_episodes = int(config['q_learning']['num_episodes'])
+alpha = float(config['q_learning']['alpha'])
+gamma = float(config['q_learning']['gamma'])
+epsilon = float(config['q_learning']['epsilon'])
 
 # functions
 def load_data(config_path, features_file):
@@ -121,7 +124,7 @@ def env_step(df, categories, ad_info, current_category, action, video_names, X, 
     return next_category, reward
 
 
-def train_q_learning(df, categories, ad_info, video_names, X, num_episodes=1000, alpha=0.1, gamma=0.9, epsilon=0.1):
+def train_q_learning(df, categories, ad_info, video_names, X, num_episodes, alpha, gamma, epsilon):
     '''
     Trains a Q-learning model to recommend the best ad for each video category.
     
@@ -158,7 +161,7 @@ def train_q_learning(df, categories, ad_info, video_names, X, num_episodes=1000,
             else:
                 action = np.argmax(Q[state_idx])
 
-            next_category, reward = env_step(df, categories, ad_info, state_category, action)
+            next_category, reward = env_step(df, categories, ad_info, state_category, action, video_names, X)
             next_state_idx = category_to_idx[next_category]
 
             Q[state_idx, action] += alpha * (reward + gamma * np.max(Q[next_state_idx]) - Q[state_idx, action])
@@ -191,8 +194,11 @@ def main():
         'videoclip': {'long': (0.5, 2), 'short': (0.9, 1)}
     }
 
-    Q, rewards_per_episode = train_q_learning(df, categories, ad_info, video_names, X)
-
+    Q, rewards_per_episode = train_q_learning(
+        df, categories, ad_info, video_names, X,
+        num_episodes=num_episodes, alpha=alpha, gamma=gamma, epsilon=epsilon
+    )
+    
     for i, cat in enumerate(categories):
         best_action = np.argmax(Q[i])
         cat_ad = best_action // 2
