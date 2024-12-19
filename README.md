@@ -26,7 +26,10 @@ Proyecto
 ├── config
 │   └── settings.conf
 ├── data
-│   └── ...
+│   ├── detection_results_semantic/
+│   ├── models/
+│   ├── processed/
+│   └── vectorized.csv
 ├── logger
 │   └── logger_setup.py
 ├── logs
